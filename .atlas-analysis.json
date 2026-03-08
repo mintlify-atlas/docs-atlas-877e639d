@@ -1,0 +1,68 @@
+{
+  "projectType": "frontend",
+  "projectName": "Psi Lime Portfolio",
+  "projectDescription": "Modern React portfolio website featuring 3D graphics, custom WebGL effects, and interactive components showcasing Jeronimo Diaz's work as a Systems Engineer and React developer.",
+  "theme": "palm",
+  "primaryColor": "#22a4fc",
+  "lightColor": "#4bc1fc",
+  "darkColor": null,
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Components",
+        "pages": [
+          "components/aurora",
+          "components/spotlight-card",
+          "components/logo-loop",
+          "components/header",
+          "components/presentation",
+          "components/about-me",
+          "components/projects",
+          "components/contact"
+        ]
+      },
+      {
+        "group": "Customization",
+        "pages": [
+          "customization/styling",
+          "customization/brand-colors",
+          "customization/content"
+        ]
+      },
+      {
+        "group": "Deployment",
+        "pages": [
+          "deployment/build",
+          "deployment/github-pages"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Custom WebGL Aurora background with shader effects",
+    "Interactive SpotlightCard component with mouse tracking",
+    "Infinite LogoLoop animation component",
+    "Three.js integration for 3D graphics",
+    "EmailJS contact form with reCAPTCHA",
+    "Responsive design with TailwindCSS",
+    "GSAP animation support",
+    "GitHub Pages deployment ready"
+  ],
+  "publicApiSurface": [
+    "Aurora - WebGL aurora background component",
+    "SpotlightCard - Interactive card with spotlight effect",
+    "LogoLoop - Infinite scrolling logo carousel",
+    "Header - Navigation header component",
+    "Presentation - Hero section with profile",
+    "Aboutme - About section with skills showcase",
+    "Projects - Project portfolio showcase",
+    "GetContact - Contact form with EmailJS"
+  ]
+}
