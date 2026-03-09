@@ -1,0 +1,204 @@
+---
+title: 'SpotlightCard'
+description: 'An interactive card component with a dynamic spotlight effect that follows the cursor'
+---
+
+# SpotlightCard
+
+SpotlightCard is a beautiful, interactive card component that creates a radial gradient spotlight effect following the user's cursor. Perfect for highlighting important content with an engaging visual interaction.
+
+## Overview
+
+The component tracks mouse movement and creates a smooth, animated spotlight that follows the cursor position. It includes focus states for accessibility and provides customizable spotlight colors.
+
+## Props
+
+<ParamField path="children" type="ReactNode" required>
+  The content to be rendered inside the spotlight card.
+</ParamField>
+
+<ParamField path="className" type="string" default="''">
+  Additional CSS classes to apply to the card container. These classes are appended to the default styling.
+</ParamField>
+
+<ParamField path="spotlightColor" type="string" default="'rgba(255, 255, 255, 0.25)'">
+  The color of the spotlight effect. Accepts any valid CSS color value, including rgba for transparency control.
+</ParamField>
+
+## Usage
+
+<CodeGroup>
+
+```jsx Basic Usage
+import SpotlightCard from './components/SpotlightCard/SpotLightCard';
+
+function App() {
+  return (
+    <SpotlightCard>
+      <h2>Card Title</h2>
+      <p>Card content goes here</p>
+    </SpotlightCard>
+  );
+}
+```
+
+```jsx Custom Spotlight Color
+import SpotlightCard from './components/SpotlightCard/SpotLightCard';
+
+function App() {
+  return (
+    <SpotlightCard spotlightColor="rgba(0, 229, 255, 0.2)">
+      <h2>Cyan Spotlight</h2>
+      <p>This card has a cyan spotlight effect</p>
+    </SpotlightCard>
+  );
+}
+```
+
+```jsx With Custom Styling
+import SpotlightCard from './components/SpotlightCard/SpotLightCard';
+
+function App() {
+  return (
+    <SpotlightCard 
+      className="w-[300px] h-[200px]"
+      spotlightColor="rgba(255, 0, 128, 0.3)"
+    >
+      <div className="flex flex-col items-center justify-center h-full">
+        <h2 className="text-xl font-bold">Custom Card</h2>
+        <p>With custom dimensions</p>
+      </div>
+    </SpotlightCard>
+  );
+}
+```
+
+</CodeGroup>
+
+## Real-World Examples
+
+### Education Card (from About Me section)
+
+```jsx
+<SpotlightCard 
+  spotlightColor="rgba(0, 229, 255, 0.2)" 
+  className="w-[200px] h-[150px] rounded-2xl"
+>
+  <div className="flex flex-col items-center justify-center gap-1 p-2 h-full text-center">
+    <h2 className="text-sm uppercase text-white">Education</h2>
+    <p className="text-xs text-white">Universidad EAN - Systems Engineer</p>
+    <p className="text-xs text-white">2023 - 2027</p>
+  </div>
+</SpotlightCard>
+```
+
+### Project Card (from Projects section)
+
+```jsx
+<SpotlightCard 
+  className="w-[320px]" 
+  spotlightColor="rgba(0, 229, 255, 0.2)"
+>
+  <div className="flex flex-col items-center gap-4 rounded-2xl p-6">
+    <img src={Project1} alt="Music Store" className="w-full rounded-xl object-cover" />
+    <div className="flex flex-col items-center gap-3 text-center">
+      <h2 className="text-xl font-semibold text-white">Music Store</h2>
+      <p className="text-[#C7C7C7] text-sm">
+        Full stack music instrument store built with React, Tailwind and Supabase.
+      </p>
+    </div>
+  </div>
+</SpotlightCard>
+```
+
+### Contact Form (from Contact section)
+
+```jsx
+<SpotlightCard 
+  spotlightColor="rgba(0, 229, 255, 0.2)" 
+  className="w-full max-w-[450px] rounded-2xl"
+>
+  <form className="w-full p-6 md:p-8">
+    {/* Form fields */}
+  </form>
+</SpotlightCard>
+```
+
+## Features
+
+### Mouse Tracking
+
+The spotlight smoothly follows the mouse cursor when hovering over the card, creating an engaging interactive experience.
+
+### Focus States
+
+The component includes proper focus handling for accessibility:
+- Spotlight appears on mouse enter
+- Spotlight maintains position during focus
+- Smooth opacity transitions (500ms duration)
+
+### Default Styling
+
+<Note>
+  The component comes with built-in styling including rounded corners, border, and backdrop blur. You can extend these styles using the `className` prop.
+</Note>
+
+Default classes applied:
+- `rounded-3xl` - Rounded corners
+- `border border-neutral-800` - Subtle border
+- `bg-neutral-900` - Dark background
+- `overflow-hidden` - Clips spotlight effect
+- `p-8` - Default padding
+
+## Customization Options
+
+### Color Themes
+
+```jsx
+{/* Cyan Theme */}
+<SpotlightCard spotlightColor="rgba(0, 229, 255, 0.2)" />
+
+{/* Purple Theme */}
+<SpotlightCard spotlightColor="rgba(138, 43, 226, 0.25)" />
+
+{/* Green Theme */}
+<SpotlightCard spotlightColor="rgba(0, 255, 127, 0.2)" />
+
+{/* Gold Theme */}
+<SpotlightCard spotlightColor="rgba(255, 215, 0, 0.15)" />
+```
+
+### Size Variations
+
+```jsx
+{/* Small Card */}
+<SpotlightCard className="w-[200px] h-[150px]" />
+
+{/* Medium Card */}
+<SpotlightCard className="w-[300px] h-[200px]" />
+
+{/* Large Card */}
+<SpotlightCard className="w-[400px] h-[300px]" />
+
+{/* Full Width */}
+<SpotlightCard className="w-full max-w-[500px]" />
+```
+
+## Accessibility
+
+The component is fully accessible with:
+- Keyboard focus support
+- Focus-visible states
+- Smooth transitions for reduced motion preferences
+- Proper event handling for mouse and keyboard interactions
+
+## Browser Compatibility
+
+Works in all modern browsers that support:
+- CSS `backdrop-filter` for the blur effect
+- CSS custom properties
+- Radial gradients
+
+<Note>
+  For older browsers without backdrop-filter support, consider providing a fallback background color.
+</Note>

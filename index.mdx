@@ -1,97 +1,138 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: Welcome to Psi Lime Portfolio
+description: Modern React portfolio website featuring stunning 3D graphics, custom WebGL effects, and interactive components
 ---
 
-## Setting up
+<img
+  className="block dark:hidden rounded-lg shadow-lg"
+  src="https://media.brand.dev/444f0a6d-23f9-49a0-91a1-9908c4128af8.png"
+  alt="Psi Lime Portfolio"
+  style={{ maxWidth: '200px', margin: '0 auto 2rem' }}
+/>
 
-Get your documentation site up and running in minutes.
+<img
+  className="hidden dark:block rounded-lg shadow-lg"
+  src="https://media.brand.dev/444f0a6d-23f9-49a0-91a1-9908c4128af8.png"
+  alt="Psi Lime Portfolio"
+  style={{ maxWidth: '200px', margin: '0 auto 2rem' }}
+/>
+
+# Build Your Own Stunning Portfolio
+
+**Psi Lime Portfolio** is a modern, production-ready React portfolio template built with cutting-edge web technologies. Showcase your work with beautiful 3D graphics, smooth animations, and interactive components that leave a lasting impression.
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="WebGL Aurora Background" icon="wand-magic-sparkles" href="/components/aurora">
+    Custom shader-based aurora effect with configurable colors and animations
+  </Card>
+  <Card title="Interactive Components" icon="hand-pointer" href="/components/spotlight-card">
+    Mouse-tracking spotlight cards and infinite scrolling logo carousels
+  </Card>
+  <Card title="3D Graphics Ready" icon="cube" href="/quickstart">
+    Three.js integration with react-three-fiber for stunning 3D visuals
+  </Card>
+  <Card title="Contact Form" icon="envelope" href="/components/contact">
+    EmailJS integration with reCAPTCHA protection for secure communication
+  </Card>
+</CardGroup>
+
+## Tech Stack
+
+Built with modern tools and frameworks:
+
+- **React 19** - Latest React with concurrent features
+- **Vite** - Lightning-fast build tool and dev server
+- **TailwindCSS** - Utility-first CSS framework
+- **Three.js** - 3D graphics and WebGL rendering
+- **GSAP** - Professional-grade animation library
+- **OGL** - Lightweight WebGL library for custom shaders
+
+## Quick Start
+
+Get up and running in minutes:
+
+<Steps>
+  <Step title="Clone the Repository">
+    Clone the portfolio template to your local machine:
+    ```bash
+    git clone https://github.com/JDiazRzo/Portfolio.git
+    cd Portfolio
+    ```
+  </Step>
+
+  <Step title="Install Dependencies">
+    Install all required packages using your preferred package manager:
+    <CodeGroup>
+    ```bash npm
+    npm install
+    ```
+    ```bash yarn
+    yarn install
+    ```
+    ```bash pnpm
+    pnpm install
+    ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Start Development Server">
+    Launch the development server with hot module replacement:
+    ```bash
+    npm run dev
+    ```
+    Your portfolio will be available at `http://localhost:5173`
+  </Step>
+</Steps>
+
+## What's Inside
+
+This portfolio template includes everything you need to create a professional online presence:
+
+### Presentation Section
+A hero section with your profile picture, bio, location, availability status, and downloadable CV. Includes social media links to GitHub, LinkedIn, and Instagram.
+
+### About Me
+Showcase your background, skills, and experience with an animated technology stack carousel featuring logos of tools you know.
+
+### Projects Showcase
+Display your best work with interactive project cards, including live demo links and source code repositories.
+
+### Contact Form
+Engage with visitors through a beautiful contact form powered by EmailJS, complete with reCAPTCHA verification for spam protection.
+
+### Custom Visual Effects
+- **Aurora Background**: WebGL-powered aurora borealis effect with customizable colors
+- **Spotlight Cards**: Mouse-tracking spotlight effect on interactive cards
+- **Logo Loop**: Infinite scrolling carousel for technology logos
+- **Smooth Animations**: GSAP-powered transitions and effects
+
+## Learn More
+
+<CardGroup cols={2}>
+  <Card title="Quickstart Guide" icon="rocket" href="/quickstart">
+    Get your portfolio running in under 5 minutes
+  </Card>
+  <Card title="Component Library" icon="puzzle-piece" href="/components/aurora">
+    Explore all available components and their APIs
+  </Card>
+  <Card title="Customization" icon="palette" href="/customization/styling">
+    Learn how to customize colors, fonts, and content
+  </Card>
+  <Card title="Deployment" icon="cloud-arrow-up" href="/deployment/github-pages">
+    Deploy your portfolio to GitHub Pages for free
+  </Card>
+</CardGroup>
+
+## Open Source
+
+This project is open source and available on GitHub. Feel free to use it as a template for your own portfolio, contribute improvements, or learn from the code.
 
 <Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
+  title="View on GitHub"
+  icon="github"
+  href="https://github.com/JDiazRzo/Portfolio"
 >
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
+  Star the repository and follow development
 </Card>

@@ -1,0 +1,158 @@
+---
+title: 'Aurora'
+description: 'A WebGL-powered animated aurora background component with customizable colors and motion'
+---
+
+# Aurora
+
+The Aurora component creates a stunning, animated aurora borealis effect using WebGL and the OGL library. It renders a fluid, gradient-based animation with customizable colors, amplitude, and blending effects.
+
+## Overview
+
+Aurora uses shader-based rendering to create smooth, organic wave patterns that simulate the northern lights. The component is highly performant and responsive, automatically adjusting to container size changes.
+
+## Props
+
+<ParamField path="colorStops" type="string[]" default="['#5227FF', '#7cff67', '#5227FF']">
+  An array of hex color codes that define the gradient color palette. Three colors are recommended for optimal visual effect.
+</ParamField>
+
+<ParamField path="amplitude" type="number" default="1.0">
+  Controls the wave height intensity. Higher values create more dramatic wave patterns. Typical range: 0.5 to 2.0.
+</ParamField>
+
+<ParamField path="blend" type="number" default="0.5">
+  Controls the smoothness of the aurora alpha blending. Higher values create softer edges.
+</ParamField>
+
+<ParamField path="time" type="number" optional>
+  Custom time value for animation. If not provided, uses automatic time progression.
+</ParamField>
+
+<ParamField path="speed" type="number" default="1.0">
+  Animation speed multiplier. Values below 1.0 slow down the animation, values above 1.0 speed it up.
+</ParamField>
+
+## Usage
+
+<CodeGroup>
+
+```jsx Basic Usage
+import Aurora from './components/Aurora/Aurora';
+
+function App() {
+  return (
+    <div className="w-full h-screen">
+      <Aurora />
+    </div>
+  );
+}
+```
+
+```jsx Custom Colors
+import Aurora from './components/Aurora/Aurora';
+
+function App() {
+  return (
+    <div className="w-full h-screen">
+      <Aurora 
+        colorStops={['#FF0080', '#7928CA', '#FF0080']}
+        amplitude={1.5}
+        blend={0.7}
+      />
+    </div>
+  );
+}
+```
+
+```jsx Slow Animation
+import Aurora from './components/Aurora/Aurora';
+
+function App() {
+  return (
+    <div className="w-full h-screen">
+      <Aurora 
+        colorStops={['#5227FF', '#7cff67', '#5227FF']}
+        speed={0.5}
+        amplitude={0.8}
+      />
+    </div>
+  );
+}
+```
+
+</CodeGroup>
+
+## Technical Details
+
+### WebGL Shaders
+
+The component uses custom GLSL shaders:
+- **Vertex Shader**: Simple position-based rendering
+- **Fragment Shader**: Implements Simplex noise for organic wave patterns with color ramping
+
+### Performance Considerations
+
+<Note>
+  The Aurora component uses hardware-accelerated WebGL rendering for optimal performance. It automatically cleans up resources on unmount to prevent memory leaks.
+</Note>
+
+- Automatically resizes on window resize events
+- Uses `requestAnimationFrame` for smooth 60fps animation
+- Properly disposes of WebGL context on component unmount
+- Transparent background with proper alpha blending
+
+## Customization Examples
+
+### Blue-Green Ocean Theme
+
+```jsx
+<Aurora 
+  colorStops={['#0066CC', '#00E5FF', '#0066CC']}
+  amplitude={1.2}
+  blend={0.6}
+  speed={0.7}
+/>
+```
+
+### Fire Theme
+
+```jsx
+<Aurora 
+  colorStops={['#FF4500', '#FFD700', '#FF4500']}
+  amplitude={2.0}
+  blend={0.4}
+  speed={1.5}
+/>
+```
+
+### Subtle Background
+
+```jsx
+<Aurora 
+  colorStops={['#1a1a2e', '#16213e', '#1a1a2e']}
+  amplitude={0.5}
+  blend={0.8}
+  speed={0.3}
+/>
+```
+
+## Browser Compatibility
+
+<Warning>
+  This component requires WebGL support. Ensure your target browsers support WebGL or provide a fallback for older browsers.
+</Warning>
+
+Supported browsers:
+- Chrome 56+
+- Firefox 51+
+- Safari 11+
+- Edge 79+
+
+## Dependencies
+
+The Aurora component requires the [OGL library](https://github.com/oframe/ogl):
+
+```bash
+npm install ogl
+```

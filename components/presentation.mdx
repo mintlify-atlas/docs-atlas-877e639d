@@ -1,0 +1,308 @@
+---
+title: 'Presentation'
+description: 'Hero section component showcasing personal introduction with profile image and social links'
+---
+
+# Presentation
+
+The Presentation component serves as the hero section of the portfolio, displaying personal information, location, availability status, CV download, and social media links.
+
+## Overview
+
+This component creates an engaging introduction section with a two-column layout (responsive single column on mobile) featuring text content and a profile image.
+
+## Props
+
+The Presentation component does not accept props. All content is defined within the component.
+
+## Usage
+
+<CodeGroup>
+
+```jsx Basic Implementation
+import Presentation from './components/Presentation/Presentation';
+
+function App() {
+  return (
+    <main>
+      <section id="presentation">
+        <Presentation />
+      </section>
+    </main>
+  );
+}
+```
+
+```jsx With Header Navigation
+import Header from './components/Header/Header';
+import Presentation from './components/Presentation/Presentation';
+
+function App() {
+  return (
+    <>
+      <Header />
+      <section id="presentation">
+        <Presentation />
+      </section>
+    </>
+  );
+}
+```
+
+</CodeGroup>
+
+## Features
+
+### Personal Information Display
+
+The component displays:
+- Name and title
+- Brief bio/description
+- Location information
+- Availability status
+- Profile image
+
+### Social Media Integration
+
+Includes icons and links to:
+- GitHub
+- LinkedIn  
+- Instagram
+
+Using `react-icons` for consistent icon styling:
+
+```jsx
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { MdOutlineWork } from "react-icons/md";
+import { FaLocationDot } from "react-icons/fa6";
+```
+
+### CV Download
+
+Provides a download button for the resume/CV:
+
+```jsx
+import CV from '/docs/CV.pdf';
+
+<a href={CV} download="Jeronimo-Diaz-CV.pdf">
+  <button>Download CV</button>
+</a>
+```
+
+## Layout Structure
+
+### Responsive Layout
+
+The component uses Flexbox for responsive design:
+
+```jsx
+className="flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-16"
+```
+
+- **Mobile**: Column layout (reversed) with image on top
+- **Desktop**: Row layout with text left, image right
+
+### Content Sections
+
+1. **Text Content**
+   - Heading and subheading
+   - Description paragraph
+   - Location and availability badges
+   - CV download button
+   - Social media links
+
+2. **Profile Image**
+   - Rounded corners
+   - Responsive sizing
+   - Object-fit cover
+
+## Customization
+
+### Personalizing Content
+
+```jsx
+function Presentation() {
+  return (
+    <section className="flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-16 mt-20 md:mt-28 px-6 md:px-16 max-w-5xl mx-auto">
+      
+      <div className="flex flex-col text-center md:text-left">
+        <div>
+          <h1 className="text-3xl md:text-5xl font-bold mb-3">
+            Hi, I'm [Your Name]
+          </h1>
+          <h2 className="text-xl md:text-3xl text-[#b5b5b5] mb-5">
+            [Your Title/Role]
+          </h2>
+          <p className="text-base md:text-lg leading-relaxed max-w-[500px] text-[#C7C7C7]">
+            [Your description]
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center md:justify-start gap-5 mt-5">
+          <div className="flex items-center gap-2">
+            <FaLocationDot className="w-5 h-5 text-white" />
+            <p className="text-sm text-[#C7C7C7]">[Your Location]</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <MdOutlineWork className="w-5 h-5 text-white" />
+            <p className="text-sm text-[#C7C7C7]">[Your Status]</p>
+          </div>
+        </div>
+
+        {/* Rest of component */}
+      </div>
+    </section>
+  );
+}
+```
+
+### Customizing Social Links
+
+```jsx
+<ul className="flex gap-5 list-none">
+  <li>
+    <a href="[YOUR_GITHUB_URL]" target="_blank" rel="noopener noreferrer">
+      <FaGithub className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+    </a>
+  </li>
+  <li>
+    <a href="[YOUR_LINKEDIN_URL]" target="_blank" rel="noopener noreferrer">
+      <FaLinkedin className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+    </a>
+  </li>
+  {/* Add more social links */}
+</ul>
+```
+
+### Changing Profile Image
+
+```jsx
+import Pfp from '/img/your-profile-image.jpg';
+
+<div className="w-[250px] h-[250px] md:w-[400px] md:h-[400px] mx-2 flex-shrink-0">
+  <img src={Pfp} alt="Profile" className="w-full h-full object-cover rounded-2xl" />
+</div>
+```
+
+### Button Styling Variants
+
+```jsx
+{/* Solid Button */}
+<button className="bg-blue-600 text-white px-5 py-3 rounded-xl text-sm font-medium hover:bg-blue-700 transition-all duration-200 shadow-lg">
+  Download CV
+</button>
+
+{/* Outline Button */}
+<button className="bg-transparent text-white px-5 py-3 rounded-xl text-sm font-medium border-2 border-white hover:bg-white hover:text-black transition-all duration-200">
+  Download CV
+</button>
+
+{/* Gradient Button */}
+<button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-5 py-3 rounded-xl text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg">
+  Download CV
+</button>
+```
+
+## Dependencies
+
+<Note>
+  This component requires `react-icons` for the social media and status icons:
+</Note>
+
+```bash
+npm install react-icons
+```
+
+### Icons Used
+
+- `FaGithub` - GitHub icon
+- `FaLinkedin` - LinkedIn icon
+- `FaInstagram` - Instagram icon
+- `MdOutlineWork` - Work/availability icon
+- `FaLocationDot` - Location pin icon
+
+## File Structure
+
+```
+src/
+├── components/
+│   └── Presentation/
+│       └── Presentation.jsx
+└── public/
+    ├── docs/
+    │   └── CV.pdf
+    └── img/
+        └── Pfp.jpg
+```
+
+## Styling Details
+
+### Text Hierarchy
+
+```jsx
+{/* Main heading */}
+<h1 className="text-3xl md:text-5xl font-bold mb-3">
+
+{/* Subheading */}
+<h2 className="text-xl md:text-3xl text-[#b5b5b5] mb-5">
+
+{/* Body text */}
+<p className="text-base md:text-lg leading-relaxed max-w-[500px] text-[#C7C7C7]">
+```
+
+### Hover Effects
+
+Social icons include smooth hover animations:
+
+```jsx
+className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200"
+```
+
+- Color change to blue
+- Subtle upward movement (-0.5rem)
+- 200ms transition duration
+
+### Divider Line
+
+A styled horizontal rule separates sections:
+
+```jsx
+<hr className="w-3/4 border-2 border-[#3A3C41] rounded my-6 mx-auto md:mx-0" />
+```
+
+## Responsive Breakpoints
+
+- **Mobile** (< 768px):
+  - Column layout (flex-col-reverse)
+  - Centered text
+  - Smaller image (250x250px)
+  - Smaller text sizes
+  - Margin top: 20 (mt-20)
+
+- **Desktop** (≥ 768px):
+  - Row layout (flex-row)
+  - Left-aligned text
+  - Larger image (400x400px)
+  - Larger text sizes  
+  - Margin top: 28 (mt-28)
+
+## Accessibility
+
+- Semantic HTML elements (`<section>`, `<header>`, `<nav>`)
+- Proper heading hierarchy (h1, h2)
+- Alt text for images (add via img alt attribute)
+- External links with `target="_blank"` and `rel="noopener noreferrer"`
+- Descriptive link text and icons
+- Keyboard accessible buttons and links
+
+## Best Practices
+
+1. **Image Optimization**: Compress profile image for web (WebP format recommended)
+2. **CV File**: Keep CV file size reasonable (< 2MB)
+3. **Social Links**: Verify all links are current and working
+4. **Responsive Testing**: Test on multiple device sizes
+5. **Color Contrast**: Ensure text colors meet WCAG accessibility standards
+
+<Warning>
+  Remember to update the social media URLs, CV file path, and profile image path with your own information.
+</Warning>

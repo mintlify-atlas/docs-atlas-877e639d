@@ -1,0 +1,233 @@
+---
+title: 'Building for Production'
+description: 'Learn how to build your Psi Lime Portfolio for production deployment'
+---
+
+## Overview
+
+The Psi Lime Portfolio uses Vite as its build tool, which provides fast and optimized production builds. This guide covers everything you need to know about building your portfolio for production.
+
+## Build Command
+
+To create a production build of your portfolio, run:
+
+<CodeGroup>
+```bash npm
+npm run build
+```
+
+```bash yarn
+yarn build
+```
+
+```bash pnpm
+pnpm build
+```
+</CodeGroup>
+
+This command runs `vite build`, which:
+- Bundles your application for production
+- Minifies JavaScript and CSS
+- Optimizes assets (images, fonts, etc.)
+- Generates source maps
+- Outputs everything to the `dist` folder
+
+## Build Output
+
+### Output Structure
+
+After building, you'll find the production files in the `dist/` directory:
+
+```
+dist/
+├── assets/
+│   ├── index-[hash].js
+│   ├── index-[hash].css
+│   └── [other-assets]
+├── index.html
+└── [other-static-files]
+```
+
+<Note>
+Vite automatically adds content hashes to filenames for optimal caching. Each time you build, the hash changes only for modified files.
+</Note>
+
+### Output Size
+
+The build process includes several optimizations:
+- **Code splitting**: Splits code into smaller chunks for faster loading
+- **Tree shaking**: Removes unused code
+- **Minification**: Reduces file sizes
+- **Asset optimization**: Compresses images and other assets
+
+## Environment Variables
+
+### Production Environment Variables
+
+If you need to use environment variables in production, create a `.env.production` file:
+
+```bash .env.production
+VITE_API_URL=https://api.example.com
+VITE_RECAPTCHA_SITE_KEY=your_production_key
+```
+
+<Warning>
+Only environment variables prefixed with `VITE_` are exposed to your client-side code. Never store sensitive information in client-side environment variables.
+</Warning>
+
+### Accessing Environment Variables
+
+In your code, access environment variables using:
+
+```javascript
+const apiUrl = import.meta.env.VITE_API_URL;
+const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+```
+
+## Build Optimization Tips
+
+### 1. Analyze Bundle Size
+
+To understand what's in your build, you can use bundle analysis tools:
+
+```bash
+npm install --save-dev rollup-plugin-visualizer
+```
+
+Then update your `vite.config.js`:
+
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    visualizer({ open: true })
+  ],
+  assetsInclude: ['**/*.glb'],
+})
+```
+
+### 2. Lazy Load Routes
+
+Optimize initial load time by lazy loading routes:
+
+```javascript
+import { lazy, Suspense } from 'react';
+
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
+### 3. Optimize 3D Assets
+
+Since this portfolio uses Three.js and GLB models:
+- Compress GLB files using tools like [gltf-pipeline](https://github.com/CesiumGS/gltf-pipeline)
+- Use Draco compression for meshes
+- Optimize texture sizes and formats
+
+### 4. Configure Build Options
+
+Customize your build in `vite.config.js`:
+
+```javascript
+export default defineConfig({
+  plugins: [react()],
+  assetsInclude: ['**/*.glb'],
+  build: {
+    // Increase chunk size warning limit for 3D assets
+    chunkSizeWarningLimit: 1000,
+    // Customize rollup options
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'three': ['three'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    }
+  }
+})
+```
+
+## Preview Production Build
+
+Before deploying, preview your production build locally:
+
+<Steps>
+  <Step title="Build the project">
+    ```bash
+    npm run build
+    ```
+  </Step>
+  
+  <Step title="Start the preview server">
+    ```bash
+    npm run preview
+    ```
+  </Step>
+  
+  <Step title="Open in browser">
+    The preview server runs at `http://localhost:4173` by default. Open this URL to test your production build.
+  </Step>
+</Steps>
+
+<Note>
+The preview server serves the `dist` folder exactly as it would be served in production, making it perfect for final testing.
+</Note>
+
+## Troubleshooting
+
+### Build Fails with Memory Error
+
+If your build fails due to memory issues:
+
+```bash
+node --max-old-space-size=4096 ./node_modules/vite/bin/vite.js build
+```
+
+### Assets Not Loading
+
+Ensure your `vite.config.js` includes the correct asset types:
+
+```javascript
+assetsInclude: ['**/*.glb', '**/*.gltf', '**/*.hdr']
+```
+
+### Source Maps in Production
+
+If you want to disable source maps in production:
+
+```javascript
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    sourcemap: false
+  }
+})
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Deploy to GitHub Pages" icon="github" href="/deployment/github-pages">
+    Learn how to deploy your built portfolio to GitHub Pages
+  </Card>
+  
+  <Card title="Customization" icon="gear" href="/customization/styling">
+    Customize colors, styling, and content for your portfolio
+  </Card>
+</CardGroup>

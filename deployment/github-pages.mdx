@@ -1,0 +1,379 @@
+---
+title: 'Deploy to GitHub Pages'
+description: 'Step-by-step guide to deploying your Psi Lime Portfolio to GitHub Pages'
+---
+
+## Overview
+
+GitHub Pages provides free hosting for static websites directly from your GitHub repository. This guide walks you through deploying your Psi Lime Portfolio to GitHub Pages.
+
+## Prerequisites
+
+<Steps>
+  <Step title="GitHub Repository">
+    Ensure your project is in a GitHub repository. If not, create one:
+    
+    ```bash
+    git init
+    git add .
+    git commit -m "Initial commit"
+    git branch -M main
+    git remote add origin https://github.com/yourusername/your-repo.git
+    git push -u origin main
+    ```
+  </Step>
+  
+  <Step title="Install Dependencies">
+    The `gh-pages` package is already included in the project dependencies:
+    
+    ```bash
+    npm install
+    ```
+  </Step>
+  
+  <Step title="Build the Project">
+    Ensure your project builds successfully:
+    
+    ```bash
+    npm run build
+    ```
+  </Step>
+</Steps>
+
+## Configuration
+
+### Update Vite Configuration
+
+For GitHub Pages, you need to configure the base path in `vite.config.js`:
+
+<CodeGroup>
+```javascript User Repository (username.github.io)
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  assetsInclude: ['**/*.glb'],
+  base: '/', // Root domain
+})
+```
+
+```javascript Project Repository
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  assetsInclude: ['**/*.glb'],
+  base: '/your-repo-name/', // Replace with your repository name
+})
+```
+</CodeGroup>
+
+<Warning>
+If deploying to a project repository (e.g., `yourusername.github.io/portfolio`), you MUST set the `base` option to match your repository name. Omitting this will cause assets to fail loading.
+</Warning>
+
+### Update Router Configuration
+
+If using React Router, ensure your basename matches the base path:
+
+```javascript src/main.jsx
+import { BrowserRouter } from 'react-router-dom';
+
+<BrowserRouter basename={import.meta.env.BASE_URL}>
+  <App />
+</BrowserRouter>
+```
+
+<Note>
+`import.meta.env.BASE_URL` automatically uses the `base` value from your Vite config.
+</Note>
+
+## Deployment Steps
+
+<Steps>
+  <Step title="Configure Repository Settings">
+    1. Go to your GitHub repository
+    2. Click **Settings** → **Pages**
+    3. Under **Source**, you'll configure this after the first deployment
+  </Step>
+  
+  <Step title="Build the Project">
+    Create a fresh production build:
+    
+    ```bash
+    npm run build
+    ```
+    
+    This generates optimized files in the `dist` folder.
+  </Step>
+  
+  <Step title="Deploy to GitHub Pages">
+    Run the deploy command:
+    
+    <CodeGroup>
+    ```bash npm
+    npm run deploy
+    ```
+    
+    ```bash yarn
+    yarn deploy
+    ```
+    
+    ```bash pnpm
+    pnpm deploy
+    ```
+    </CodeGroup>
+    
+    This command:
+    - Takes the contents of the `dist` folder
+    - Pushes it to the `gh-pages` branch
+    - Automatically creates the branch if it doesn't exist
+  </Step>
+  
+  <Step title="Enable GitHub Pages">
+    After the first deployment:
+    
+    1. Go to **Settings** → **Pages**
+    2. Under **Source**, select **Deploy from a branch**
+    3. Under **Branch**, select `gh-pages` and `/ (root)`
+    4. Click **Save**
+  </Step>
+  
+  <Step title="Wait for Deployment">
+    GitHub Pages takes a few minutes to build and deploy. You'll see a green checkmark when ready.
+  </Step>
+</Steps>
+
+## Verify Deployment
+
+Your site will be available at:
+
+- **User repository**: `https://yourusername.github.io/`
+- **Project repository**: `https://yourusername.github.io/your-repo-name/`
+
+<Note>
+The first deployment may take 5-10 minutes. Subsequent deployments are usually faster (1-2 minutes).
+</Note>
+
+## Automated Deployment with GitHub Actions
+
+For automatic deployments on every push, create `.github/workflows/deploy.yml`:
+
+```yaml .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./dist
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+```
+
+<Note>
+With GitHub Actions, you need to change the Pages source to **GitHub Actions** instead of **Deploy from a branch** in repository settings.
+</Note>
+
+## Custom Domain Setup
+
+To use a custom domain with GitHub Pages:
+
+<Steps>
+  <Step title="Add CNAME file">
+    Create a `public/CNAME` file with your domain:
+    
+    ```txt public/CNAME
+    www.yourdomain.com
+    ```
+    
+    This file will be copied to `dist` during build.
+  </Step>
+  
+  <Step title="Configure DNS">
+    Add DNS records with your domain provider:
+    
+    **For apex domain (example.com):**
+    ```
+    A     @     185.199.108.153
+    A     @     185.199.109.153
+    A     @     185.199.110.153
+    A     @     185.199.111.153
+    ```
+    
+    **For subdomain (www.example.com):**
+    ```
+    CNAME www   yourusername.github.io.
+    ```
+  </Step>
+  
+  <Step title="Update GitHub Settings">
+    1. Go to **Settings** → **Pages**
+    2. Under **Custom domain**, enter your domain
+    3. Wait for DNS check to complete
+    4. Enable **Enforce HTTPS** once DNS is verified
+  </Step>
+</Steps>
+
+<Warning>
+DNS propagation can take 24-48 hours. Be patient and verify your DNS settings using tools like [DNS Checker](https://dnschecker.org).
+</Warning>
+
+## Troubleshooting
+
+### 404 Error on Page Refresh
+
+React Router requires special handling for GitHub Pages. Create a `public/404.html`:
+
+```html public/404.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+      sessionStorage.redirect = location.href;
+      location.replace(location.origin + location.pathname.split('/').slice(0, -1).join('/'));
+    </script>
+  </head>
+  <body></body>
+</html>
+```
+
+Then in your `public/index.html`, add before other scripts:
+
+```html
+<script>
+  (function() {
+    var redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect !== location.href) {
+      history.replaceState(null, null, redirect);
+    }
+  })();
+</script>
+```
+
+### Assets Not Loading
+
+Ensure the `base` path in `vite.config.js` matches your repository structure:
+
+```javascript
+base: '/your-repo-name/', // Must match exactly
+```
+
+### Deploy Command Fails
+
+If `npm run deploy` fails:
+
+1. **Check remote URL**:
+   ```bash
+   git remote -v
+   ```
+
+2. **Ensure you have push permissions**:
+   ```bash
+   git push origin main
+   ```
+
+3. **Clear gh-pages cache**:
+   ```bash
+   rm -rf node_modules/.cache/gh-pages
+   npm run deploy
+   ```
+
+### CNAME File Gets Deleted
+
+Always place your `CNAME` file in the `public/` folder, not in `dist/`. The public folder contents are automatically copied during build.
+
+### Permission Denied Error
+
+If you get permission errors:
+
+1. Generate a personal access token on GitHub
+2. Use it as your password when prompted
+3. Or configure SSH authentication:
+   ```bash
+   git remote set-url origin git@github.com:yourusername/your-repo.git
+   ```
+
+## Updating Your Deployment
+
+To deploy updates:
+
+<Steps>
+  <Step title="Make your changes">
+    Edit your code and test locally
+  </Step>
+  
+  <Step title="Commit changes">
+    ```bash
+    git add .
+    git commit -m "Your update message"
+    git push origin main
+    ```
+  </Step>
+  
+  <Step title="Deploy">
+    ```bash
+    npm run build
+    npm run deploy
+    ```
+  </Step>
+</Steps>
+
+<Note>
+You can deploy without pushing to main first. The `deploy` script only pushes the built files to the `gh-pages` branch.
+</Note>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Building for Production" icon="hammer" href="/deployment/build">
+    Learn more about optimizing your production builds
+  </Card>
+  
+  <Card title="Custom Domain" icon="globe" href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site">
+    Official GitHub Pages custom domain documentation
+  </Card>
+</CardGroup>

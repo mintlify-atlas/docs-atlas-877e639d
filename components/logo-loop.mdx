@@ -1,0 +1,335 @@
+---
+title: 'LogoLoop'
+description: 'An infinite scrolling logo carousel with smooth animations and customizable direction'
+---
+
+# LogoLoop
+
+LogoLoop is a performant, infinite scrolling carousel component designed for displaying logos or icons. It features smooth animations, customizable scrolling directions, hover interactions, and accessibility support.
+
+## Overview
+
+This component creates a seamless infinite loop effect by automatically duplicating content. It supports horizontal and vertical scrolling, respects reduced motion preferences, and includes features like fade-out edges and hover effects.
+
+## Props
+
+<ParamField path="logos" type="Logo[]" required>
+  Array of logo objects to display. Each logo can be an image object with `src`, `alt`, etc., or a node object with custom JSX.
+  
+  ```typescript
+  type Logo = {
+    src?: string;
+    alt?: string;
+    title?: string;
+    href?: string;
+    width?: number;
+    height?: number;
+    srcSet?: string;
+    sizes?: string;
+    node?: ReactNode;
+    ariaLabel?: string;
+  }
+  ```
+</ParamField>
+
+<ParamField path="speed" type="number" default="120">
+  Scroll speed in pixels per second. Positive values scroll in the default direction, negative values reverse it.
+</ParamField>
+
+<ParamField path="direction" type="'left' | 'right' | 'up' | 'down'" default="'left'">
+  Direction of the scrolling animation.
+</ParamField>
+
+<ParamField path="width" type="string | number" default="'100%'">
+  Width of the carousel container. Accepts CSS length values or numbers (interpreted as pixels).
+</ParamField>
+
+<ParamField path="logoHeight" type="number" default="28">
+  Height of each logo in pixels. Width is automatically calculated to maintain aspect ratio.
+</ParamField>
+
+<ParamField path="gap" type="number" default="32">
+  Spacing between logos in pixels.
+</ParamField>
+
+<ParamField path="pauseOnHover" type="boolean" optional>
+  If `true`, pauses animation on hover. If `false`, continues at normal speed. If undefined, hover behavior is disabled.
+</ParamField>
+
+<ParamField path="hoverSpeed" type="number" optional>
+  Custom speed when hovering. Overrides `pauseOnHover` if provided.
+</ParamField>
+
+<ParamField path="fadeOut" type="boolean" default="false">
+  Enables fade-out gradient at the edges of the carousel for a smoother visual effect.
+</ParamField>
+
+<ParamField path="fadeOutColor" type="string" optional>
+  Custom color for the fade-out gradient. Defaults to white in light mode, dark in dark mode.
+</ParamField>
+
+<ParamField path="scaleOnHover" type="boolean" default="false">
+  Enables scale animation on individual logo hover (1.2x zoom).
+</ParamField>
+
+<ParamField path="renderItem" type="(item: Logo, key: string) => ReactNode" optional>
+  Custom render function for each logo item. Provides full control over item rendering.
+</ParamField>
+
+<ParamField path="ariaLabel" type="string" default="'Partner logos'">
+  ARIA label for the carousel region for accessibility.
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes to apply to the root container.
+</ParamField>
+
+<ParamField path="style" type="CSSProperties" optional>
+  Inline styles to apply to the root container.
+</ParamField>
+
+## Usage
+
+<CodeGroup>
+
+```jsx Basic Usage
+import LogoLoop from './components/LogoLoop/LogoLoop';
+
+const logos = [
+  { src: "/logos/company1.svg", alt: "Company 1" },
+  { src: "/logos/company2.svg", alt: "Company 2" },
+  { src: "/logos/company3.svg", alt: "Company 3" },
+];
+
+function App() {
+  return (
+    <LogoLoop logos={logos} />
+  );
+}
+```
+
+```jsx With Pause on Hover
+import LogoLoop from './components/LogoLoop/LogoLoop';
+
+const logos = [
+  { src: "/logos/react.svg", alt: "React" },
+  { src: "/logos/vue.svg", alt: "Vue" },
+  { src: "/logos/angular.svg", alt: "Angular" },
+];
+
+function App() {
+  return (
+    <LogoLoop 
+      logos={logos}
+      speed={90}
+      pauseOnHover
+      fadeOut
+    />
+  );
+}
+```
+
+```jsx Vertical Scrolling
+import LogoLoop from './components/LogoLoop/LogoLoop';
+
+const logos = [
+  { src: "/icons/icon1.svg", alt: "Icon 1" },
+  { src: "/icons/icon2.svg", alt: "Icon 2" },
+  { src: "/icons/icon3.svg", alt: "Icon 3" },
+];
+
+function App() {
+  return (
+    <LogoLoop 
+      logos={logos}
+      direction="up"
+      speed={60}
+      logoHeight={50}
+      gap={40}
+    />
+  );
+}
+```
+
+```jsx With Custom Links
+import LogoLoop from './components/LogoLoop/LogoLoop';
+
+const logos = [
+  { 
+    src: "/logos/company1.svg", 
+    alt: "Company 1",
+    href: "https://company1.com",
+    title: "Visit Company 1"
+  },
+  { 
+    src: "/logos/company2.svg", 
+    alt: "Company 2",
+    href: "https://company2.com"
+  },
+];
+
+function App() {
+  return (
+    <LogoLoop logos={logos} scaleOnHover />
+  );
+}
+```
+
+</CodeGroup>
+
+## Real-World Example
+
+From the About Me section of Psi Lime Portfolio:
+
+```jsx
+import LogoLoop from '../LogoLoop/LogoLoop';
+
+const icons = [
+  { src: "/Icons/css.svg", alt: "css" },
+  { src: "/Icons/git.svg", alt: "git" },
+  { src: "/Icons/github.svg", alt: "github" },
+  { src: "/Icons/html.svg", alt: "html" },
+  { src: "/Icons/js.svg", alt: "javascript" },
+  { src: "/Icons/mongo.svg", alt: "mongodb" },
+  { src: "/Icons/node.svg", alt: "nodejs" },
+  { src: "/Icons/postgre.svg", alt: "postgreSQL" },
+  { src: "/Icons/python.svg", alt: "python" },
+  { src: "/Icons/react.svg", alt: "react" },
+  { src: "/Icons/tailwind.svg", alt: "tailwind" },
+  { src: "/Icons/tensorfl.svg", alt: "tensorflow" },
+];
+
+function Aboutme() {
+  return (
+    <div className="logo-white w-full mt-16 relative overflow-hidden py-9">
+      <LogoLoop
+        logos={icons}
+        speed={90}
+        direction="left"
+        logoHeight={70}
+        gap={80}
+        pauseOnHover
+        fadeOut
+        fadeOutColor="transparent"
+      />
+    </div>
+  );
+}
+```
+
+## Advanced Features
+
+### Custom Rendering
+
+Use the `renderItem` prop for complete control over item rendering:
+
+```jsx
+<LogoLoop
+  logos={logos}
+  renderItem={(item, key) => (
+    <div className="custom-logo-wrapper" key={key}>
+      <img src={item.src} alt={item.alt} />
+      <span className="logo-label">{item.alt}</span>
+    </div>
+  )}
+/>
+```
+
+### Custom Node Content
+
+Pass React nodes instead of images:
+
+```jsx
+const customLogos = [
+  {
+    node: <div className="custom-content">Custom Element 1</div>,
+    ariaLabel: "Custom Element 1"
+  },
+  {
+    node: <svg>...</svg>,
+    ariaLabel: "Custom SVG"
+  },
+];
+
+<LogoLoop logos={customLogos} />
+```
+
+### Responsive Sizing
+
+```jsx
+<LogoLoop
+  logos={logos}
+  logoHeight={50}
+  gap={40}
+  className="md:logo-height-70 md:gap-80"
+/>
+```
+
+## Performance
+
+<Note>
+  LogoLoop is highly optimized for performance with several key features:
+</Note>
+
+- **RAF-based Animation**: Uses `requestAnimationFrame` for 60fps smooth scrolling
+- **Dynamic Copy Management**: Automatically calculates the minimum number of copies needed
+- **ResizeObserver**: Efficiently handles container size changes
+- **Image Loading**: Waits for images to load before calculating dimensions
+- **Smooth Easing**: Exponential easing for velocity changes (tau = 0.25s)
+- **Reduced Motion Support**: Respects `prefers-reduced-motion` media query
+
+## Accessibility
+
+- Proper ARIA roles (`region`, `list`, `listitem`)
+- Customizable ARIA labels
+- `aria-hidden` on duplicate copies
+- Keyboard accessible links
+- Focus-visible outline styles
+- Screen reader friendly
+
+## Animation Details
+
+### Direction Mapping
+
+- `left`: Scrolls content from right to left
+- `right`: Scrolls content from left to right  
+- `up`: Scrolls content from bottom to top
+- `down`: Scrolls content from top to bottom
+
+### Speed Control
+
+```jsx
+{/* Slow */}
+<LogoLoop speed={30} />
+
+{/* Normal */}
+<LogoLoop speed={120} />
+
+{/* Fast */}
+<LogoLoop speed={200} />
+
+{/* Reverse Direction */}
+<LogoLoop speed={-120} direction="left" />
+```
+
+## Styling
+
+The component uses CSS custom properties for easy theming:
+
+```css
+--logoloop-gap: 32px
+--logoloop-logoHeight: 28px  
+--logoloop-fadeColorAuto: #ffffff (light mode) / #0b0b0b (dark mode)
+--logoloop-fadeColor: (custom override)
+```
+
+## Browser Compatibility
+
+- Modern browsers with ResizeObserver support
+- Fallback to window resize events for older browsers
+- CSS custom properties support required
+- Transform3d for hardware acceleration
+
+<Warning>
+  For browsers without ResizeObserver support, the component falls back to window resize events which may be less efficient.
+</Warning>

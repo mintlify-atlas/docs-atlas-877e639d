@@ -1,0 +1,624 @@
+---
+title: 'Content Customization'
+description: 'Learn how to update personal information, projects, and images in your portfolio'
+---
+
+# Content Customization
+
+This guide shows you how to replace the default content with your own personal information, projects, skills, and images.
+
+## Personal Information
+
+Your personal details are displayed in the hero section of the portfolio.
+
+### Name and Title
+
+Update your name and professional title in `Presentation.jsx:13-14`:
+
+```jsx src/components/Presentation/Presentation.jsx
+<h1 className="text-3xl md:text-5xl font-bold mb-3">Hi, I'm Jeronimo Diaz</h1>
+<h2 className="text-xl md:text-3xl text-[#b5b5b5] mb-5">Systems Engineer / React developer</h2>
+```
+
+<Steps>
+  <Step title="Open Presentation.jsx">
+    Navigate to `src/components/Presentation/Presentation.jsx`
+  </Step>
+  
+  <Step title="Update your name">
+    Replace "Jeronimo Diaz" with your full name on line 13
+  </Step>
+  
+  <Step title="Update your title">
+    Replace "Systems Engineer / React developer" with your professional title on line 14
+  </Step>
+</Steps>
+
+### Bio/Introduction
+
+Update your personal introduction in `Presentation.jsx:15-17`:
+
+```jsx src/components/Presentation/Presentation.jsx
+<p className="text-base md:text-lg leading-relaxed max-w-[500px] text-[#C7C7C7]">
+  Passionate about learning new technologies and building innovative solutions that improve user experience.
+</p>
+```
+
+**Keep it concise** - 1-2 sentences that capture your passion and approach.
+
+### Location and Availability
+
+Update your location and work status in `Presentation.jsx:21-28`:
+
+```jsx src/components/Presentation/Presentation.jsx
+<div className="flex items-center justify-center md:justify-start gap-5 mt-5">
+  <div className="flex items-center gap-2">
+    <FaLocationDot className="w-5 h-5 text-white" />
+    <p className="text-sm text-[#C7C7C7]">Based in Mosquera</p>
+  </div>
+  <div className="flex items-center gap-2">
+    <MdOutlineWork className="w-5 h-5 text-white" />
+    <p className="text-sm text-[#C7C7C7]">Available now</p>
+  </div>
+</div>
+```
+
+**To update:**
+- Line 23: Replace "Based in Mosquera" with your location
+- Line 27: Change "Available now" to your current status (e.g., "Open to opportunities", "Currently employed", etc.)
+
+<Note>
+You can remove the availability status entirely by deleting lines 25-28 if you prefer not to display it.
+</Note>
+
+## Social Media Links
+
+Social media icons and links are in `Presentation.jsx:41-60`.
+
+### Current Social Links
+
+```jsx src/components/Presentation/Presentation.jsx
+<ul className="flex gap-5 list-none">
+  <li>
+    <a href="https://github.com/JDiazRzo" target="_blank" rel="noopener noreferrer">
+      <FaGithub className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+    </a>
+  </li>
+  <li>
+    <a href="https://www.linkedin.com/in/jeronimo-diaz-rozo-a836b2312/" target="_blank" rel="noopener noreferrer">
+      <FaLinkedin className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+    </a>
+  </li>
+  <li>
+    <a href="https://www.instagram.com/jdr.ro07/" target="_blank" rel="noopener noreferrer">
+      <FaInstagram className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+    </a>
+  </li>
+</ul>
+```
+
+<Steps>
+  <Step title="Update GitHub URL">
+    Replace `https://github.com/JDiazRzo` with your GitHub profile URL on line 45
+  </Step>
+  
+  <Step title="Update LinkedIn URL">
+    Replace the LinkedIn URL with your profile link on line 50
+  </Step>
+  
+  <Step title="Update Instagram URL">
+    Replace the Instagram URL with your profile link on line 55
+  </Step>
+</Steps>
+
+### Adding More Social Links
+
+To add Twitter/X, YouTube, or other platforms:
+
+<CodeGroup>
+```jsx Twitter/X
+import { FaXTwitter } from 'react-icons/fa6';
+
+<li>
+  <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
+    <FaXTwitter className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+  </a>
+</li>
+```
+
+```jsx YouTube
+import { FaYoutube } from 'react-icons/fa';
+
+<li>
+  <a href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer">
+    <FaYoutube className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+  </a>
+</li>
+```
+
+```jsx Email
+import { MdEmail } from 'react-icons/md';
+
+<li>
+  <a href="mailto:your.email@example.com">
+    <MdEmail className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+  </a>
+</li>
+```
+</CodeGroup>
+
+<Tip>
+All icons come from `react-icons`. Search for available icons at [react-icons.github.io/react-icons](https://react-icons.github.io/react-icons/)
+</Tip>
+
+## CV/Resume Download
+
+The CV download button links to a PDF file.
+
+### Current Implementation
+
+From `Presentation.jsx:4,32-36`:
+
+```jsx src/components/Presentation/Presentation.jsx
+import CV from '/docs/CV.pdf';
+
+// ...
+
+<a href={CV} download="Jeronimo-Diaz-CV.pdf">
+  <button className="bg-white/10 backdrop-blur-md text-white px-5 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg">
+    Download CV
+  </button>
+</a>
+```
+
+<Steps>
+  <Step title="Add your CV file">
+    Place your CV PDF in the `public/docs/` directory. You can name it anything (e.g., `Resume.pdf`, `YourName-CV.pdf`)
+  </Step>
+  
+  <Step title="Update the import path">
+    On line 4, update the import:
+    
+    ```jsx
+    import CV from '/docs/YourName-CV.pdf';
+    ```
+  </Step>
+  
+  <Step title="Update download filename">
+    On line 32, change the download attribute:
+    
+    ```jsx
+    <a href={CV} download="YourName-CV.pdf">
+    ```
+  </Step>
+</Steps>
+
+<Note>
+The `download` attribute sets the filename when users download your CV. Make it descriptive and professional.
+</Note>
+
+## About Me Section
+
+The About Me section provides more details about your background.
+
+### Section Heading and Description
+
+From `Aboutme.jsx:28-38`:
+
+```jsx src/components/Aboutme/Aboutme.jsx
+<p id="aboutme" className="text-sm tracking-widest uppercase text-white/50 mb-2">ABOUT ME</p>
+<h2 className="text-2xl text-white mb-5 max-w-[500px]">
+  Junior Developer | Exploring new technologies and challenges
+</h2>
+<hr className="border-2 border-[#3A3C41] w-3/4 mb-5 mx-auto md:mx-0" />
+<p className="text-base md:text-lg leading-relaxed max-w-[500px] text-[#C7C7C7] mb-5">
+  I'm a junior full stack developer with a growing interest in machine learning. 
+  I build modern web applications using React, Node.js and Supabase, 
+  and I'm currently expanding into AI and data-driven solutions. Always learning, always building.
+</p>
+<h3 className="text-2xl text-white">Code. Design. Learn. Repeat.</h3>
+```
+
+**To customize:**
+- Line 30: Update your professional tagline
+- Lines 33-36: Write your longer bio (2-3 sentences)
+- Line 38: Add your personal motto or philosophy
+
+### Education Information
+
+From `Aboutme.jsx:42-48`:
+
+```jsx src/components/Aboutme/Aboutme.jsx
+<SpotlightCard spotlightColor="rgba(0, 229, 255, 0.2)" className="w-[200px] h-[150px] rounded-2xl">
+  <div className="flex flex-col items-center justify-center gap-1 p-2 h-full text-center">
+    <h2 className="text-sm uppercase text-white">Education</h2>
+    <p className="text-xs text-white">Universidad EAN - Systems Engineer</p>
+    <p className="text-xs text-white">2023 - 2027</p>
+  </div>
+</SpotlightCard>
+```
+
+**To update:**
+- Line 45: Replace with your institution and degree
+- Line 46: Update your education years
+
+### Project Count Card
+
+From `Aboutme.jsx:50-56`:
+
+```jsx src/components/Aboutme/Aboutme.jsx
+<SpotlightCard spotlightColor="rgba(0, 229, 255, 0.2)" className="w-[200px] h-[150px] rounded-2xl">
+  <div className="flex flex-col items-center justify-center gap-1 p-2 h-full text-center">
+    <FaFolder className="w-6 h-6" />
+    <h2 className="text-sm uppercase text-white">Projects</h2>
+    <p className="text-xs text-white">1</p>
+  </div>
+</SpotlightCard>
+```
+
+**To update:**
+- Line 54: Change the number to match your project count
+
+<Tip>
+You can add more stat cards by duplicating the SpotlightCard structure. Consider adding cards for "Years Experience", "Technologies", or "Contributions".
+</Tip>
+
+## Technology Skills
+
+The technology logos are displayed in a scrolling loop.
+
+### Current Tech Stack
+
+From `Aboutme.jsx:6-19`:
+
+```jsx src/components/Aboutme/Aboutme.jsx
+const icons = [
+  {src: "/Icons/css.svg", alt: "css"},
+  {src: "/Icons/git.svg", alt: "git"},
+  {src: "/Icons/github.svg", alt: "github"},
+  {src: "/Icons/html.svg", alt: "html"},
+  {src: "/Icons/js.svg", alt: "javascript"},
+  {src: "/Icons/mongo.svg", alt: "mongodb"},
+  {src: "/Icons/node.svg", alt: "nodejs"},
+  {src: "/Icons/postgre.svg", alt: "postgreSQL"},
+  {src: "/Icons/python.svg", alt: "python"},
+  {src: "/Icons/react.svg", alt: "react"},
+  {src: "/Icons/tailwind.svg", alt: "tailwind"},
+  {src: "/Icons/tensorfl.svg", alt: "tensorflow"},
+];
+```
+
+<Steps>
+  <Step title="Add your tech icons">
+    Place SVG icon files in the `public/Icons/` directory. You can download free tech icons from:
+    - [DevIcons](https://devicon.dev/)
+    - [Simple Icons](https://simpleicons.org/)
+    - [Iconify](https://iconify.design/)
+  </Step>
+  
+  <Step title="Update the icons array">
+    Modify the array to include your technologies:
+    
+    ```jsx src/components/Aboutme/Aboutme.jsx
+    const icons = [
+      {src: "/Icons/react.svg", alt: "react"},
+      {src: "/Icons/typescript.svg", alt: "typescript"},
+      {src: "/Icons/nextjs.svg", alt: "nextjs"},
+      {src: "/Icons/docker.svg", alt: "docker"},
+      // Add more as needed
+    ];
+    ```
+  </Step>
+  
+  <Step title="Adjust scroll speed (optional)">
+    Modify the LogoLoop settings on lines 67-75:
+    
+    ```jsx src/components/Aboutme/Aboutme.jsx
+    <LogoLoop
+      logos={icons}
+      speed={90}        // Lower = faster
+      direction="left"
+      logoHeight={70}   // Adjust icon size
+      gap={80}          // Space between icons
+      pauseOnHover
+      fadeOut
+      fadeOutColor="transparent"
+    />
+    ```
+  </Step>
+</Steps>
+
+<Note>
+The `.logo-white` class applies a white filter to all logos. This is defined in `index.css:3-5` and ensures consistent appearance.
+</Note>
+
+## Projects
+
+Showcase your work in the projects section.
+
+### Current Project Structure
+
+From `Projects.jsx:1-48`:
+
+```jsx src/components/ProjectsSection/Projects.jsx
+import Project1 from '/img/Project1.png';
+
+// Inside the component:
+<SpotlightCard className="w-[320px]" spotlightColor="rgba(0, 229, 255, 0.2)">
+  <div className="flex flex-col items-center gap-4 rounded-2xl p-6">
+    <img src={Project1} alt="Music Store" className="w-full rounded-xl object-cover" />
+    <div className="flex flex-col items-center gap-3 text-center">
+      <h2 className="text-xl font-semibold text-white">Music Store</h2>
+      <p className="text-[#C7C7C7] text-sm">
+        Full stack music instrument store built with React, Tailwind and Supabase. Features product catalog, brand filters, shopping cart and GSAP animations.
+      </p>
+      <div className="flex gap-3 py-7">
+        <a href="https://github.com/JDiazRzo/MusicStore" target="_blank" rel="noopener noreferrer">
+          <button className="bg-white/10 backdrop-blur-md text-white px-5 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg">
+            Code
+          </button>
+        </a>
+        <a href="https://music-store-xi-opal.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <button className="bg-white/10 backdrop-blur-md text-white px-5 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg">
+            Preview
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</SpotlightCard>
+```
+
+### Adding Your First Project
+
+<Steps>
+  <Step title="Add project image">
+    Place your project screenshot in `public/img/`. Recommended size: 640x400px or similar aspect ratio.
+  </Step>
+  
+  <Step title="Import the image">
+    Update line 1 in `Projects.jsx`:
+    
+    ```jsx
+    import Project1 from '/img/MyProject.png';
+    ```
+  </Step>
+  
+  <Step title="Update project details">
+    Modify the project card content:
+    
+    ```jsx src/components/ProjectsSection/Projects.jsx
+    <h2 className="text-xl font-semibold text-white">Your Project Name</h2>
+    <p className="text-[#C7C7C7] text-sm">
+      Brief description of your project. Mention the key technologies and features.
+    </p>
+    ```
+  </Step>
+  
+  <Step title="Update project links">
+    Replace the GitHub and live preview URLs:
+    
+    ```jsx
+    <a href="https://github.com/yourusername/yourproject" target="_blank" rel="noopener noreferrer">
+      {/* Code button */}
+    </a>
+    <a href="https://yourproject.vercel.app" target="_blank" rel="noopener noreferrer">
+      {/* Preview button */}
+    </a>
+    ```
+  </Step>
+</Steps>
+
+### Adding Multiple Projects
+
+To showcase more than one project:
+
+<Steps>
+  <Step title="Import multiple images">
+    ```jsx src/components/ProjectsSection/Projects.jsx
+    import Project1 from '/img/Project1.png';
+    import Project2 from '/img/Project2.png';
+    import Project3 from '/img/Project3.png';
+    ```
+  </Step>
+  
+  <Step title="Create a projects grid">
+    Replace the single project section with a grid:
+    
+    ```jsx src/components/ProjectsSection/Projects.jsx
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 w-full max-w-6xl">
+      {/* Project 1 */}
+      <SpotlightCard className="w-full" spotlightColor="rgba(0, 229, 255, 0.2)">
+        {/* Project 1 content */}
+      </SpotlightCard>
+      
+      {/* Project 2 */}
+      <SpotlightCard className="w-full" spotlightColor="rgba(0, 229, 255, 0.2)">
+        {/* Project 2 content */}
+      </SpotlightCard>
+      
+      {/* Project 3 */}
+      <SpotlightCard className="w-full" spotlightColor="rgba(0, 229, 255, 0.2)">
+        {/* Project 3 content */}
+      </SpotlightCard>
+    </div>
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+For a cleaner approach with many projects, create an array of project objects and map over them to generate cards automatically.
+</Tip>
+
+### Projects Array Pattern (Advanced)
+
+```jsx src/components/ProjectsSection/Projects.jsx
+const projects = [
+  {
+    id: 1,
+    title: "Project One",
+    description: "Description of project one...",
+    image: "/img/Project1.png",
+    github: "https://github.com/username/project1",
+    live: "https://project1.vercel.app"
+  },
+  {
+    id: 2,
+    title: "Project Two",
+    description: "Description of project two...",
+    image: "/img/Project2.png",
+    github: "https://github.com/username/project2",
+    live: "https://project2.vercel.app"
+  },
+  // Add more projects
+];
+
+function Projects() {
+  return (
+    <section className="flex flex-col items-center mt-28 px-16 text-[#ECECEC]">
+      {/* Header section */}
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 w-full max-w-6xl">
+        {projects.map((project) => (
+          <SpotlightCard key={project.id} className="w-full" spotlightColor="rgba(0, 229, 255, 0.2)">
+            <div className="flex flex-col items-center gap-4 rounded-2xl p-6">
+              <img src={project.image} alt={project.title} className="w-full rounded-xl object-cover" />
+              <div className="flex flex-col items-center gap-3 text-center">
+                <h2 className="text-xl font-semibold text-white">{project.title}</h2>
+                <p className="text-[#C7C7C7] text-sm">{project.description}</p>
+                <div className="flex gap-3 py-7">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <button className="bg-white/10 backdrop-blur-md text-white px-5 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg">
+                      Code
+                    </button>
+                  </a>
+                  <a href={project.live} target="_blank" rel="noopener noreferrer">
+                    <button className="bg-white/10 backdrop-blur-md text-white px-5 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg">
+                      Preview
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </SpotlightCard>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+## Images
+
+All images are stored in the `public/img/` directory.
+
+### Current Image Files
+
+- `Pfp.jpg` - Profile picture (hero section)
+- `abt.jpg` - About me section image
+- `Project1.png` - Project screenshot
+- `logo.png` - Portfolio logo (if used)
+
+### Replacing Images
+
+<Steps>
+  <Step title="Prepare your images">
+    Recommended specifications:
+    - **Profile picture**: 400x400px, square, JPG or PNG
+    - **About me image**: 350x400px, portrait orientation
+    - **Project screenshots**: 640x400px, landscape, 16:10 ratio
+  </Step>
+  
+  <Step title="Add images to public/img/">
+    Place your images in `public/img/` directory. You can keep the same filenames or use new ones.
+  </Step>
+  
+  <Step title="Update image imports">
+    If using different filenames, update the imports:
+    
+    **In Presentation.jsx (line 5):**
+    ```jsx
+    import Pfp from '/img/YourProfilePic.jpg'
+    ```
+    
+    **In Aboutme.jsx (line 2):**
+    ```jsx
+    import abt from '/img/YourAboutImage.jpg';
+    ```
+    
+    **In Projects.jsx (line 1):**
+    ```jsx
+    import Project1 from '/img/YourProject.png';
+    ```
+  </Step>
+</Steps>
+
+<Note>
+The portfolio automatically optimizes images during build. Use high-quality originals for best results.
+</Note>
+
+## Section Headings
+
+Update section headings to match your content.
+
+### Projects Section Header
+
+From `Projects.jsx:10-15`:
+
+```jsx src/components/ProjectsSection/Projects.jsx
+<p className="text-sm tracking-widest uppercase text-white/50 mb-2">PROJECTS</p>
+<h2 className="text-3xl font-bold text-white mb-4">Featured Work</h2>
+<hr className="w-1/4 border-2 border-[#3A3C41] rounded mb-4" />
+<p id="projects" className="text-[#C7C7C7] max-w-lg">
+  A little showcase of my recent projects using modern frameworks and creative problem-solving.
+</p>
+```
+
+**Customize:**
+- Line 11: Change "Featured Work" to your preferred heading
+- Lines 13-14: Update the description
+
+## Content Checklist
+
+Before publishing, ensure you've updated:
+
+<Steps>
+  <Step title="Personal Information">
+    - [ ] Name and title (Presentation.jsx:13-14)
+    - [ ] Bio/introduction (Presentation.jsx:15-17)
+    - [ ] Location (Presentation.jsx:23)
+    - [ ] Availability status (Presentation.jsx:27)
+  </Step>
+  
+  <Step title="Links and Files">
+    - [ ] GitHub URL (Presentation.jsx:45)
+    - [ ] LinkedIn URL (Presentation.jsx:50)
+    - [ ] Instagram/other social URLs (Presentation.jsx:55)
+    - [ ] CV/Resume file and download name (Presentation.jsx:4, 32)
+  </Step>
+  
+  <Step title="About Section">
+    - [ ] Professional tagline (Aboutme.jsx:30)
+    - [ ] Extended bio (Aboutme.jsx:33-36)
+    - [ ] Personal motto (Aboutme.jsx:38)
+    - [ ] Education details (Aboutme.jsx:45-46)
+    - [ ] Project count (Aboutme.jsx:54)
+  </Step>
+  
+  <Step title="Skills and Projects">
+    - [ ] Technology icons (Aboutme.jsx:6-19)
+    - [ ] Project images (Projects.jsx:1)
+    - [ ] Project descriptions (Projects.jsx:24-26)
+    - [ ] Project links (Projects.jsx:29, 34)
+  </Step>
+  
+  <Step title="Images">
+    - [ ] Profile picture (public/img/Pfp.jpg)
+    - [ ] About section image (public/img/abt.jpg)
+    - [ ] Project screenshots (public/img/Project1.png)
+  </Step>
+</Steps>
+
+<Tip>
+Test all external links after updating to ensure they point to the correct destinations.
+</Tip>

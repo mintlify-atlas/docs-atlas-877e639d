@@ -1,0 +1,250 @@
+---
+title: 'Header'
+description: 'Fixed navigation header with smooth scroll links to page sections'
+---
+
+# Header
+
+The Header component provides a fixed navigation bar with smooth scrolling functionality to different sections of the page. It features a glassmorphic design with backdrop blur effects.
+
+## Overview
+
+This navigation component is positioned at the bottom on mobile and at the top on desktop. It includes smooth scroll behavior to navigate between page sections without page reloads.
+
+## Props
+
+The Header component does not accept any props. It uses hardcoded navigation links to specific section IDs.
+
+## Usage
+
+<CodeGroup>
+
+```jsx Basic Implementation
+import Header from './components/Header/Header';
+
+function App() {
+  return (
+    <>
+      <Header />
+      {/* Your page sections */}
+      <section id="presentation">...</section>
+      <section id="projects">...</section>
+      <section id="aboutme">...</section>
+      <section id="contact">...</section>
+    </>
+  );
+}
+```
+
+```jsx Complete Layout
+import Header from './components/Header/Header';
+import Presentation from './components/Presentation/Presentation';
+import Projects from './components/ProjectsSection/Projects';
+import Aboutme from './components/Aboutme/Aboutme';
+import GetContact from './components/Getcontact/Getcontact';
+
+function App() {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <Presentation />
+      <Projects />
+      <Aboutme />
+      <GetContact />
+    </div>
+  );
+}
+```
+
+</CodeGroup>
+
+## Features
+
+### Smooth Scrolling
+
+The header uses `scrollIntoView` with smooth behavior to navigate to sections:
+
+```javascript
+const handleScroll = (id) => {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+};
+```
+
+### Navigation Links
+
+The component includes four navigation buttons:
+
+1. **HOME** - Scrolls to `#presentation`
+2. **PROJECTS** - Scrolls to `#projects`
+3. **ABOUT ME** - Scrolls to `#aboutme`
+4. **CONTACT ME** - Scrolls to `#contact`
+
+### Responsive Design
+
+<Note>
+  The header automatically repositions based on screen size:
+  - **Mobile** (default): Fixed at bottom
+  - **Desktop** (md breakpoint): Fixed at top
+</Note>
+
+## Styling
+
+### Glassmorphism Effect
+
+The header uses a modern glassmorphic design:
+
+```jsx
+className="bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl"
+```
+
+This creates:
+- Semi-transparent white background (5% opacity)
+- Backdrop blur effect
+- Subtle white border (20% opacity)
+- Rounded corners
+
+### Button Hover States
+
+Each button includes hover effects:
+
+```jsx
+className="hover:bg-white/10 transition-colors duration-200"
+```
+
+## Customization
+
+### Modifying Navigation Links
+
+To customize the navigation links, edit the button elements:
+
+```jsx
+function Header() {
+  const handleScroll = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <header className="fixed bottom-5 md:top-5 md:bottom-auto left-1/2 -translate-x-1/2 z-50 flex gap-1 md:gap-2 px-3 md:px-5 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl">
+      <button onClick={() => handleScroll("section1")}>Section 1</button>
+      <button onClick={() => handleScroll("section2")}>Section 2</button>
+      <button onClick={() => handleScroll("section3")}>Section 3</button>
+    </header>
+  );
+}
+```
+
+### Changing Position
+
+To keep header at top on all screen sizes:
+
+```jsx
+className="fixed top-5 left-1/2 -translate-x-1/2 z-50 ..."
+```
+
+To keep header at bottom on all screen sizes:
+
+```jsx
+className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 ..."
+```
+
+### Custom Styling
+
+```jsx
+// Dark theme variant
+<header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex gap-2 px-5 py-2 bg-black/50 backdrop-blur-md border border-gray-700 rounded-2xl">
+  {/* buttons */}
+</header>
+
+// Solid background variant
+<header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex gap-2 px-5 py-2 bg-gray-900 border border-gray-800 rounded-2xl shadow-lg">
+  {/* buttons */}
+</header>
+
+// Pill shape variant
+<header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex gap-2 px-5 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-full">
+  {/* buttons */}
+</header>
+```
+
+## Required Section IDs
+
+<Warning>
+  Ensure your page sections have the corresponding IDs for the navigation to work:
+</Warning>
+
+```jsx
+<section id="presentation">
+  {/* Presentation content */}
+</section>
+
+<section id="projects">
+  {/* Projects content */}
+</section>
+
+<section id="aboutme">
+  {/* About Me content */}
+</section>
+
+<section id="contact">
+  {/* Contact content */}
+</section>
+```
+
+## Responsive Breakpoints
+
+Tailwind CSS breakpoints used:
+
+- **Default (mobile)**: < 768px
+  - Bottom position
+  - Smaller gaps (gap-1)
+  - Smaller padding (px-3)
+  - Smaller text (text-xs)
+  
+- **md (tablet/desktop)**: ≥ 768px
+  - Top position
+  - Larger gaps (gap-2)
+  - Larger padding (px-5)
+  - Larger text (text-sm)
+
+## Accessibility
+
+The component includes:
+- Semantic `<header>` element
+- Proper button elements with click handlers
+- Keyboard accessible buttons
+- Clear text labels
+- High z-index (50) to stay above content
+
+## Best Practices
+
+1. **Section IDs**: Use descriptive, lowercase IDs without spaces
+2. **Z-Index**: Ensure the header's z-index is higher than other fixed elements
+3. **Scroll Padding**: Consider adding scroll padding to your sections to account for the fixed header:
+
+```css
+/* Add to your global CSS */
+html {
+  scroll-padding-top: 80px; /* Adjust based on header height */
+}
+```
+
+4. **Active States**: Consider adding active state styling to indicate current section:
+
+```jsx
+const [activeSection, setActiveSection] = useState('presentation');
+
+// Add intersection observer to track active section
+// Then apply active styles conditionally
+```
+
+## Browser Compatibility
+
+The smooth scroll behavior is supported in:
+- Chrome 61+
+- Firefox 36+
+- Safari 15.4+
+- Edge 79+
+
+<Note>
+  For older browsers, the navigation will still work but will use instant scrolling instead of smooth scrolling.
+</Note>

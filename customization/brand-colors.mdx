@@ -1,0 +1,355 @@
+---
+title: 'Brand Colors'
+description: 'Learn how to update the color scheme throughout your portfolio'
+---
+
+# Brand Colors
+
+The Psi Lime Portfolio uses a cohesive color scheme throughout the design. This guide shows you where colors are defined and how to update them consistently.
+
+## Color Palette Overview
+
+The portfolio uses these primary colors:
+
+- **Background**: `#0f0f0f` - Deep black
+- **Aurora gradients**: `#bce8fb` (cyan), `#b39ef5` (lavender), `#b624f9` (purple)
+- **Text primary**: `#ffffff` (white)
+- **Text secondary**: `#b5b5b5` (light gray)
+- **Text body**: `#C7C7C7` (medium gray)
+- **Borders/dividers**: `#3A3C41` (dark gray)
+- **Hover accent**: `#3A76D9` (blue)
+- **Spotlight**: `rgba(0, 229, 255, 0.2)` (cyan glow)
+
+## Background Colors
+
+### Main Background
+
+The main background is defined in `App.jsx:9`:
+
+```jsx src/App.jsx
+<div className="fixed inset-0 -z-20 bg-[#0f0f0f]" />
+```
+
+<Steps>
+  <Step title="Choose your background color">
+    Pick a dark color that will serve as your base background. Use a color picker to get the hex code.
+  </Step>
+  
+  <Step title="Update the background">
+    Replace `#0f0f0f` with your chosen color:
+    
+    ```jsx src/App.jsx
+    <div className="fixed inset-0 -z-20 bg-[#1a1a2e]" />
+    ```
+  </Step>
+</Steps>
+
+<Note>
+Keep the background dark for the aurora effect to be visible and maintain good contrast with white text.
+</Note>
+
+## Aurora Background Colors
+
+The animated aurora effect is the most distinctive visual element of the portfolio.
+
+### Where Aurora Colors Are Defined
+
+Aurora colors are specified in `App.jsx:12-13`:
+
+```jsx src/App.jsx
+<Aurora
+  colorStops={["#bce8fb","#b39ef5","#b624f9"]}
+  blend={1}
+  amplitude={1.0}
+  speed={1.4}
+/>
+```
+
+### How the Color Gradient Works
+
+The `colorStops` array defines a 3-color gradient:
+- **First color** (`#bce8fb`): Left side of the screen
+- **Second color** (`#b39ef5`): Middle
+- **Third color** (`#b624f9`): Right side
+
+These colors are processed in `Aurora.jsx:150-153` and converted to RGB for the shader.
+
+### Customizing Aurora Colors
+
+<Steps>
+  <Step title="Choose your gradient colors">
+    Select 3 colors that blend well together. For best results:
+    - Use colors with similar brightness
+    - Create a smooth gradient from left to right
+    - Test how they look at 60% opacity
+    
+    Example color schemes:
+    
+    <CodeGroup>
+    ```jsx Ocean Blue
+    colorStops={["#1e3a8a", "#0891b2", "#06b6d4"]}
+    ```
+    
+    ```jsx Sunset
+    colorStops={["#fb923c", "#f97316", "#dc2626"]}
+    ```
+    
+    ```jsx Forest Green
+    colorStops={["#059669", "#10b981", "#34d399"]}
+    ```
+    
+    ```jsx Pink Purple
+    colorStops={["#ec4899", "#a855f7", "#7c3aed"]}
+    ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Update the Aurora component">
+    Open `src/App.jsx` and replace the `colorStops` array:
+    
+    ```jsx src/App.jsx
+    <Aurora
+      colorStops={["#1e3a8a", "#0891b2", "#06b6d4"]}
+      blend={1}
+      amplitude={1.0}
+      speed={1.4}
+    />
+    ```
+  </Step>
+  
+  <Step title="Adjust opacity if needed">
+    The aurora opacity is controlled on line 11:
+    
+    ```jsx src/App.jsx
+    <div className="fixed inset-0 -z-10 w-screen h-screen opacity-60">
+    ```
+    
+    Change `opacity-60` to make it more subtle or prominent:
+    - `opacity-40` - More subtle
+    - `opacity-80` - More prominent
+  </Step>
+</Steps>
+
+<Tip>
+Use online gradient generators to preview how your colors will blend together before applying them.
+</Tip>
+
+## Text Colors
+
+The portfolio uses a hierarchy of text colors for visual distinction.
+
+### Primary Headings
+
+Main headings use pure white (`Presentation.jsx:13`):
+
+```jsx src/components/Presentation/Presentation.jsx
+<h1 className="text-3xl md:text-5xl font-bold mb-3 text-white">Hi, I'm Jeronimo Diaz</h1>
+```
+
+### Secondary Headings
+
+Subtitles use `#b5b5b5` (`Presentation.jsx:14`):
+
+```jsx src/components/Presentation/Presentation.jsx
+<h2 className="text-xl md:text-3xl text-[#b5b5b5] mb-5">Systems Engineer / React developer</h2>
+```
+
+### Body Text
+
+Body text uses `#C7C7C7` (`Presentation.jsx:15`):
+
+```jsx src/components/Presentation/Presentation.jsx
+<p className="text-base md:text-lg leading-relaxed max-w-[500px] text-[#C7C7C7]">
+  Passionate about learning new technologies...
+</p>
+```
+
+### Section Labels
+
+Uppercase section labels use semi-transparent white (`Aboutme.jsx:28`):
+
+```jsx src/components/Aboutme/Aboutme.jsx
+<p className="text-sm tracking-widest uppercase text-white/50 mb-2">ABOUT ME</p>
+```
+
+### Updating Text Colors Consistently
+
+<Steps>
+  <Step title="Find all instances">
+    Use search to find all color references:
+    
+    - `text-[#b5b5b5]` - Secondary headings
+    - `text-[#C7C7C7]` - Body text
+    - `text-white/50` - Labels
+  </Step>
+  
+  <Step title="Replace with your colors">
+    Choose your text color hierarchy and replace all instances:
+    
+    ```jsx
+    // Example: Warmer color scheme
+    text-[#e5e5e5]  // Replace #b5b5b5
+    text-[#d4d4d4]  // Replace #C7C7C7
+    text-white/40   // Replace text-white/50
+    ```
+  </Step>
+</Steps>
+
+<Note>
+Maintain sufficient contrast ratios for accessibility. Body text should have at least 4.5:1 contrast against the background.
+</Note>
+
+## Border and Divider Colors
+
+Horizontal rules and borders use `#3A3C41` throughout the portfolio.
+
+### Dividers
+
+From `Presentation.jsx:39`:
+
+```jsx src/components/Presentation/Presentation.jsx
+<hr className="w-3/4 border-2 border-[#3A3C41] rounded my-6 mx-auto md:mx-0" />
+```
+
+### Card Borders
+
+The SpotlightCard component uses dark borders (`SpotLightCard.jsx:42`):
+
+```jsx src/components/SpotlightCard/SpotLightCard.jsx
+<div className="relative rounded-3xl border border-neutral-800 bg-neutral-900 overflow-hidden p-8">
+```
+
+**To update:**
+- Replace `border-[#3A3C41]` with your custom border color
+- Replace `border-neutral-800` with a custom color or Tailwind class
+
+## Hover and Interactive Colors
+
+### Icon Hover Color
+
+Social media icons use `#3A76D9` on hover (`Presentation.jsx:46`):
+
+```jsx src/components/Presentation/Presentation.jsx
+<FaGithub className="w-6 h-6 text-white hover:text-[#3A76D9] hover:-translate-y-0.5 transition-all duration-200" />
+```
+
+### Button Hover States
+
+Buttons increase opacity on hover (`Presentation.jsx:33`):
+
+```jsx
+className="bg-white/10 ... hover:bg-white/20 ..."
+```
+
+<Steps>
+  <Step title="Choose hover accent color">
+    Pick a color that complements your aurora gradient:
+    
+    ```jsx
+    // Match your primary aurora color
+    hover:text-[#0891b2]
+    ```
+  </Step>
+  
+  <Step title="Update all hover states">
+    Search for `hover:text-[#3A76D9]` and replace with your color:
+    
+    Files to update:
+    - `src/components/Presentation/Presentation.jsx:46,51,56`
+  </Step>
+</Steps>
+
+## Spotlight Card Glow
+
+The SpotlightCard component has a customizable glow effect.
+
+### Default Spotlight Color
+
+From `Aboutme.jsx:42` and `Projects.jsx:20`:
+
+```jsx src/components/Aboutme/Aboutme.jsx
+<SpotlightCard spotlightColor="rgba(0, 229, 255, 0.2)" className="w-[200px] h-[150px] rounded-2xl">
+```
+
+### Customizing Spotlight Color
+
+The `spotlightColor` prop accepts any RGBA color:
+
+<CodeGroup>
+```jsx Purple Glow
+<SpotlightCard spotlightColor="rgba(168, 85, 247, 0.2)">
+```
+
+```jsx Blue Glow
+<SpotlightCard spotlightColor="rgba(59, 130, 246, 0.2)">
+```
+
+```jsx Green Glow
+<SpotlightCard spotlightColor="rgba(34, 197, 94, 0.2)">
+```
+</CodeGroup>
+
+<Tip>
+Keep the alpha value (last number) between 0.1-0.3 for a subtle glow effect. Higher values can be overwhelming.
+</Tip>
+
+## Component Background Colors
+
+### Header Background
+
+From `Header.jsx:7`:
+
+```jsx src/components/Header/Header.jsx
+className="... bg-white/5 backdrop-blur-md border border-white/20 ..."
+```
+
+### SpotlightCard Background
+
+From `SpotLightCard.jsx:42`:
+
+```jsx src/components/SpotlightCard/SpotLightCard.jsx
+className="... bg-neutral-900 ..."
+```
+
+**To customize:**
+- Adjust `bg-white/5` to change header transparency
+- Replace `bg-neutral-900` with your preferred card background
+
+## Creating a Cohesive Color Scheme
+
+<Steps>
+  <Step title="Start with the aurora">
+    Choose your 3 aurora colors first - these define your brand identity.
+  </Step>
+  
+  <Step title="Pick hover/accent color">
+    Select an accent color from your aurora gradient for hover states.
+  </Step>
+  
+  <Step title="Set text hierarchy">
+    Keep text colors subtle - they should complement, not compete with the aurora.
+  </Step>
+  
+  <Step title="Test contrast">
+    Verify all text is readable against your background and aurora overlay.
+  </Step>
+  
+  <Step title="Update systematically">
+    Work through components one by one, updating all color references.
+  </Step>
+</Steps>
+
+## Quick Reference: All Color Locations
+
+| Color Usage | File | Line | Current Value |
+|------------|------|------|---------------|
+| Main background | `App.jsx` | 9 | `#0f0f0f` |
+| Aurora colors | `App.jsx` | 13 | `#bce8fb`, `#b39ef5`, `#b624f9` |
+| Aurora opacity | `App.jsx` | 11 | `opacity-60` |
+| Secondary heading | `Presentation.jsx` | 14 | `#b5b5b5` |
+| Body text | `Presentation.jsx` | 15 | `#C7C7C7` |
+| Location/status text | `Presentation.jsx` | 23 | `#C7C7C7` |
+| Dividers | `Presentation.jsx` | 39 | `#3A3C41` |
+| Hover accent | `Presentation.jsx` | 46 | `#3A76D9` |
+| Spotlight glow | `Aboutme.jsx` | 42 | `rgba(0, 229, 255, 0.2)` |
+| Section labels | `Aboutme.jsx` | 28 | `text-white/50` |
